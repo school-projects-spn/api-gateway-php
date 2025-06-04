@@ -11,11 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 $method = $_SERVER['REQUEST_METHOD'];
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
+// Service URLs (will be updated with EC2 IPs later)
 $services = [
-    'auth' => 'http://3.91.151.128',
-    'student' => 'http://18.209.22.248',
-    'teacher' => 'http://18.234.223.149',
-    'api-gateway' => 'http://100.27.202.162',
+    'auth'    => 'http://172.31.88.144:8001',  // Auth Service Private IP
+    'student' => 'http://172.31.86.188:8002',  // Student Service Private IP
+    'teacher' => 'http://172.31.88.49:8003'   // Teacher Service Private IP
 ];
 
 function proxyRequest($url, $method, $headers = [], $data = null) {
@@ -49,10 +49,6 @@ if (strpos($path, '/auth/') === 0) {
 } elseif (strpos($path, '/teacher/') === 0) {
     $targetPath = str_replace('/teacher', '', $path);
     $url = $services['teacher'] . $targetPath;
-
-} elseif (strpos($path, '/api-gateway/') === 0) {
-    $targetPath = str_replace('/api-gateway', '', $path);
-    $url = $services['api-gateway'] . $targetPath;
 
 } else {
     http_response_code(404);
