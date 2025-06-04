@@ -1,0 +1,6 @@
+{
+    "name": "gateway/service",
+    "description": "API Gateway microservice",
+    "type": "project",
+    "require": {}
+}
