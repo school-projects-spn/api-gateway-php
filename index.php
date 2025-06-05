@@ -11,11 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 $method = $_SERVER['REQUEST_METHOD'];
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-// Service URLs (updated to use public IPs of each EC2 instance)
 $services = [
-    'auth'    => 'http://54.145.160.225:8001',  // AuthService Public IP
-    'student' => 'http://18.212.20.27:8002',    // StudentService Public IP
-    'teacher' => 'http://3.95.21.60:8003'       // TeacherService Public IP
+    'auth'    => 'http://54.145.160.225:8001',
+    'student' => 'http://18.212.20.27:8002',
+    'teacher' => 'http://3.95.21.60:8003'
 ];
 
 function proxyRequest($url, $method, $headers = [], $data = null) {
